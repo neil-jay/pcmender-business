@@ -1,0 +1,18 @@
+---
+import '../styles/global.css'
+import ParticleNet from '../components/ParticleNet.tsx'
+const { lang = 'en', title, description } = Astro.props
+---
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {title && <title>{title}</title>}
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <div class="scan-bar" aria-hidden="true"></div>
+    <ParticleNet client:load />
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,76 @@
+name: Auto tag
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create and push tag
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git fetch --tags --force
+
+          latest_tag="$(git describe --tags --abbrev=0 2>/dev/null || echo v0.0.0)"
+          base="${latest_tag#v}"
+
+          IFS='.' read -r major minor patch <<<"$base"
+          major="${major:-0}"
+          minor="${minor:-0}"
+          patch="${patch:-0}"
+
+          range="${latest_tag}..HEAD"
+          messages="$(git log --format=%B "$range" || true)"
+
+          bump="patch"
+          if echo "$messages" | grep -qE 'BREAKING CHANGE|^[a-zA-Z]+(\([^)]+\))?!:'; then
+            bump="major"
+          elif echo "$messages" | grep -qE '^feat(\([^)]+\))?:'; then
+            bump="minor"
+          fi
+
+          if [ "$bump" = "major" ]; then
+            major=$((major + 1))
+            minor=0
+            patch=0
+          elif [ "$bump" = "minor" ]; then
+            minor=$((minor + 1))
+            patch=0
+          else
+            patch=$((patch + 1))
+          fi
+
+          new_tag="v${major}.${minor}.${patch}"
+          if git rev-parse "$new_tag" >/dev/null 2>&1; then
+            echo "Tag already exists: $new_tag"
+            exit 0
+          fi
+
+          git tag -a "$new_tag" -m "release: $new_tag"
+
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push origin "$new_tag"
+
+          if gh release view "$new_tag" >/dev/null 2>&1; then
+            echo "Release already exists: $new_tag"
+            exit 0
+          fi
+
+          gh release create "$new_tag" --title "$new_tag" --generate-notes --latest

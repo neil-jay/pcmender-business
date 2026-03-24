@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #000000;
+  --fg: #00ff88;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(ellipse at top, #03170f 0%, #000000 60%);
+  color: var(--fg);
+  font-family: Consolas, Monaco, "Courier New", monospace;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 136, 0.03) 0px,
+    rgba(0, 255, 136, 0.03) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glitch {
+  position: relative;
+  color: #00ff88;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  filter: drop-shadow(0 0 8px rgba(0,255,136,0.6));
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.glitch::before {
+  animation: glitchTop 2.2s infinite linear alternate-reverse;
+  color: #00ffaa;
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  transform: translate(1px, -1px);
+}
+.glitch::after {
+  animation: glitchBottom 2.2s infinite linear alternate-reverse;
+  color: #00dd77;
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  transform: translate(-1px, 1px);
+}
+
+@keyframes glitchTop {
+  0% { transform: translate(1px, -1px); opacity: 0.8; }
+  20% { transform: translate(-1px, 1px); opacity: 0.4; }
+  40% { transform: translate(2px, -2px); opacity: 0.9; }
+  60% { transform: translate(-2px, 2px); opacity: 0.5; }
+  80% { transform: translate(0px, 0px); opacity: 0.7; }
+  100% { transform: translate(1px, -1px); opacity: 0.8; }
+}
+@keyframes glitchBottom {
+  0% { transform: translate(-1px, 1px); opacity: 0.8; }
+  20% { transform: translate(1px, -1px); opacity: 0.5; }
+  40% { transform: translate(-2px, 2px); opacity: 0.9; }
+  60% { transform: translate(2px, -2px); opacity: 0.4; }
+  80% { transform: translate(0px, 0px); opacity: 0.7; }
+  100% { transform: translate(-1px, 1px); opacity: 0.8; }
+}
+
+.neon-border {
+  border: 1px solid rgba(0,255,136,0.3);
+  box-shadow:
+    0 0 12px rgba(0,255,136,0.2),
+    inset 0 0 8px rgba(0,255,136,0.12);
+}
+.neon-hover:hover {
+  box-shadow:
+    0 0 18px rgba(0,255,136,0.35),
+    inset 0 0 12px rgba(0,255,136,0.22);
+}
+
+.muted {
+  color: rgb(0,255,136);
+}
+
+.scan-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: -15%;
+  height: 15%;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,255,136,0) 0%,
+    rgba(0,255,136,0.08) 50%,
+    rgba(0,255,136,0) 100%
+  );
+  animation: scanMove 6s linear infinite;
+  z-index: 5;
+}
+
+@keyframes scanMove {
+  0% { transform: translateY(-15%); }
+  50% { transform: translateY(110%); }
+  100% { transform: translateY(-15%); }
+}
+
+.particle-canvas {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.icon-bullet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+.icon-bullet svg {
+  display: block;
+  filter: drop-shadow(0 0 4px rgba(0,255,136,0.5));
+}
+
+:focus-visible {
+  outline: 2px solid #00ff88;
+  outline-offset: 2px;
+}

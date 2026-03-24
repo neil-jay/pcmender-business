@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro'
+import GlitchText from '@components/GlitchText.tsx'
+import DecryptText from '@components/DecryptText.tsx'
+import IconBullet from '@components/IconBullet.astro'
+import { BUSINESS_NAME, TAGLINE, CURRENT_YEAR, SOCIAL } from '@data/site'
+---
+<BaseLayout title={`${BUSINESS_NAME} — Business Portfolio`} description="Professional services, case studies, and contact.">
+  <main class="min-h-screen relative z-10 px-4 sm:px-6 lg:px-8 py-10">
+    <section class="max-w-5xl mx-auto">
+      <div class="flex items-center gap-4 mb-8">
+        <div>
+          <a href="/" aria-label="Go to homepage" class="inline-block">
+            <GlitchText text={BUSINESS_NAME} className="text-3xl sm:text-5xl font-bold" client:visible />
+          </a>
+          <p class="mt-1 text-sm sm:text-base muted">{TAGLINE}</p>
+        </div>
+      </div>
+
+      <div class="neon-border neon-hover bg-black/80 rounded-md p-4 sm:p-6 mb-6">
+        <DecryptText text="About" className="text-xl sm:text-2xl mb-2" speed={55} trigger="hover" client:visible />
+        <p class="leading-relaxed">
+          We design, build, and secure modern web platforms with an emphasis on speed, reliability, and measurable business outcomes.
+        </p>
+      </div>
+
+      <div class="neon-border bg-black/80 rounded-md p-4 sm:p-6 mb-6">
+        <DecryptText text="Services" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:visible />
+        <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="neon-border neon-hover rounded-md p-3">
+            <DecryptText text="Web Engineering" className="text-lg" speed={55} trigger="hover" client:visible />
+          </div>
+          <div class="neon-border neon-hover rounded-md p-3">
+            <DecryptText text="Cloud & Edge" className="text-lg" speed={55} trigger="hover" client:visible />
+          </div>
+          <div class="neon-border neon-hover rounded-md p-3">
+            <DecryptText text="Security & Compliance" className="text-lg" speed={55} trigger="hover" client:visible />
+          </div>
+        </div>
+      </div>
+
+      <div class="neon-border bg-black/80 rounded-md p-4 sm:p-6 mb-6">
+        <DecryptText text="Case Studies" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:visible />
+        <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="neon-border neon-hover rounded-md p-3">
+            <DecryptText text="E‑commerce Performance" className="text-lg" speed={55} trigger="hover" client:visible />
+          </div>
+          <div class="neon-border neon-hover rounded-md p-3">
+            <DecryptText text="SaaS Hardening" className="text-lg" speed={55} trigger="hover" client:visible />
+          </div>
+          <div class="neon-border neon-hover rounded-md p-3">
+            <DecryptText text="Serverless Migration" className="text-lg" speed={55} trigger="hover" client:visible />
+          </div>
+        </div>
+      </div>
+
+      <div class="neon-border bg-black/80 rounded-md p-4 sm:p-6">
+        <DecryptText text="Contact" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:visible />
+        <ul class="space-y-2 text-sm">
+          <li><IconBullet class="mr-1" />Email: <a class="underline" href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a></li>
+          <li><IconBullet class="mr-1" />GitHub: <a class="underline" href={SOCIAL.github.url} target="_blank" rel="noopener noreferrer">github.com/{SOCIAL.github.handle}</a></li>
+        </ul>
+      </div>
+
+      <footer class="text-center text-xs sm:text-sm mt-6">
+        <span class="bg-black/80 rounded-md px-2 py-1 inline-block">© {CURRENT_YEAR} {BUSINESS_NAME}. All rights reserved. · <a href="/privacy" class="neon-border neon-hover bg-black/80 rounded-md px-2 py-1 inline-block">Privacy</a></span>
+      </footer>
+    </section>
+  </main>
+</BaseLayout>

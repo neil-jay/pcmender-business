@@ -1,0 +1,8 @@
+---
+const { size = 10, color = '#00ff88', class: cls = '' } = Astro.props
+---
+<span class={`icon-bullet ${cls}`} aria-hidden="true">
+  <svg width={size} height={size} viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="4" cy="4" r="3" fill={color} />
+  </svg>
+  </span>
