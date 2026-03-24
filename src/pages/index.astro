@@ -2,69 +2,48 @@
 import BaseLayout from '@layouts/BaseLayout.astro'
 import GlitchText from '@components/GlitchText.tsx'
 import DecryptText from '@components/DecryptText.tsx'
-import ProcessTicker from '@components/ProcessTicker.tsx'
 import IconBullet from '@components/IconBullet.astro'
 import { BUSINESS_NAME, TAGLINE, CURRENT_YEAR, SOCIAL } from '@data/site'
 ---
 <BaseLayout title={`${BUSINESS_NAME} — Business Portfolio`} description="Professional services, case studies, and contact.">
-  <main class="min-h-screen relative z-10 px-4 sm:px-6 lg:px-8 py-10">
-    <section class="max-w-5xl mx-auto">
-      <div class="flex items-center gap-4 mb-8">
-        <div>
-          <a href="/" aria-label="Go to homepage" class="inline-block">
-            <GlitchText text={BUSINESS_NAME} className="text-3xl sm:text-5xl font-bold" client:visible />
-          </a>
-          <p class="mt-1 text-sm sm:text-base muted">{TAGLINE}</p>
+  <main class="min-h-screen relative z-10 px-4 sm:px-6 lg:px-8 py-10 flex flex-col">
+    <section class="max-w-4xl mx-auto flex-1 w-full">
+      <div>
+        <a href="/" aria-label="Go to homepage" class="inline-block">
+          <GlitchText text={BUSINESS_NAME} className="text-3xl sm:text-5xl font-bold" client:only="react" />
+        </a>
+        <p class="mt-1 text-sm sm:text-base muted">{TAGLINE}</p>
+
+        <div class="mt-8">
+          <DecryptText text="About" className="text-xl sm:text-2xl mb-2" speed={55} trigger="hover" client:only="react" />
+          <p class="text-sm sm:text-base leading-relaxed opacity-90">
+            PC Mender provides reliable PC repair, diagnostics, data protection, and network support for homes and small businesses.
+            Expect clear reporting, security-first fixes, and practical recommendations.
+          </p>
+        </div>
+
+        <div class="mt-8">
+          <DecryptText text="Services" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:only="react" />
+          <ul class="space-y-2 text-sm sm:text-base">
+            <li><IconBullet class="mr-1" />Diagnostics & performance tuning</li>
+            <li><IconBullet class="mr-1" />Malware removal & OS repair</li>
+            <li><IconBullet class="mr-1" />Data backup & recovery planning</li>
+            <li><IconBullet class="mr-1" />Wi‑Fi/router setup and troubleshooting</li>
+            <li><IconBullet class="mr-1" />Security hardening & updates</li>
+          </ul>
+        </div>
+
+        <div class="mt-8">
+          <DecryptText text="Contact" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:only="react" />
+          <ul class="space-y-2 text-sm">
+            <li><IconBullet class="mr-1" />Email: <a class="underline" href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a></li>
+            <li><IconBullet class="mr-1" />GitHub: <a class="underline" href={SOCIAL.github.url} target="_blank" rel="noopener noreferrer">github.com/{SOCIAL.github.handle}</a></li>
+          </ul>
         </div>
       </div>
-
-      <div class="neon-border neon-hover bg-black/50 rounded-md p-4 sm:p-6 mb-6">
-        <DecryptText text="About" className="text-xl sm:text-2xl mb-2" speed={55} trigger="hover" client:visible />
-        <p class="leading-relaxed">
-          We design, build, and secure modern web platforms with an emphasis on speed, reliability, and measurable business outcomes.
-        </p>
-      </div>
-
-      <div class="neon-border bg-black/50 rounded-md p-4 sm:p-6 mb-6">
-        <DecryptText text="Services" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:visible />
-        <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-4">
-          <div class="neon-border neon-hover rounded-md p-3">
-            <DecryptText text="PC Repair & Diagnostics" className="text-lg" speed={55} trigger="hover" client:visible />
-          </div>
-          <div class="neon-border neon-hover rounded-md p-3">
-            <DecryptText text="Data Protection & Security" className="text-lg" speed={55} trigger="hover" client:visible />
-          </div>
-        </div>
-      </div>
-
-      <div class="neon-border bg-black/30 rounded-md p-4 sm:p-6 mb-6">
-        <DecryptText text="Case Studies" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:visible />
-        <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-4">
-          <div class="neon-border neon-hover rounded-md p-3">
-            <DecryptText text="Small Business Recovery" className="text-lg" speed={55} trigger="hover" client:visible />
-          </div>
-          <div class="neon-border neon-hover rounded-md p-3">
-            <DecryptText text="Ransomware Mitigation" className="text-lg" speed={55} trigger="hover" client:visible />
-          </div>
-        </div>
-      </div>
-
-      <div class="neon-border bg-black/30 rounded-md p-4 sm:p-6 mb-6">
-        <DecryptText text="System Status" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:visible />
-        <ProcessTicker client:visible />
-      </div>
-
-      <div class="neon-border bg-black/50 rounded-md p-4 sm:p-6">
-        <DecryptText text="Contact" className="text-xl sm:text-2xl mb-3" speed={55} trigger="hover" client:visible />
-        <ul class="space-y-2 text-sm">
-          <li><IconBullet class="mr-1" />Email: <a class="underline" href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a></li>
-          <li><IconBullet class="mr-1" />GitHub: <a class="underline" href={SOCIAL.github.url} target="_blank" rel="noopener noreferrer">github.com/{SOCIAL.github.handle}</a></li>
-        </ul>
-      </div>
-
-      <footer class="text-center text-xs sm:text-sm mt-6">
-        <span class="bg-black/50 rounded-md px-2 py-1 inline-block">© {CURRENT_YEAR} {BUSINESS_NAME}. All rights reserved. · <a href="/privacy" class="neon-border neon-hover bg-black/50 rounded-md px-2 py-1 inline-block">Privacy</a></span>
-      </footer>
     </section>
+    <footer class="text-center text-xs sm:text-sm mt-auto">
+      <span class="bg-black/50 rounded-md px-2 py-1 inline-block">© {CURRENT_YEAR} {BUSINESS_NAME}. All rights reserved. · <a href="/privacy" class="neon-border neon-hover bg-black/50 rounded-md px-2 py-1 inline-block">Privacy</a></span>
+    </footer>
   </main>
 </BaseLayout>

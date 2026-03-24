@@ -5,7 +5,7 @@ import GlitchText from '@components/GlitchText.tsx'
 <BaseLayout title="404 — Not Found" description="The page you requested could not be found.">
   <main class="min-h-screen relative z-10 px-4 sm:px-6 lg:px-8 py-10">
     <section class="max-w-3xl mx-auto text-center">
-      <GlitchText text="404" className="text-5xl sm:text-7xl font-bold" client:visible />
+      <GlitchText text="404" className="text-5xl sm:text-7xl font-bold" client:only="react" />
       <p class="mt-2 text-sm sm:text-base muted">Page Not Found</p>
       <div class="neon-border bg-black/80 rounded-md p-4 sm:p-6 mt-6">
         <p>The link you followed may be broken or the page may have been removed.</p>

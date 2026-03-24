@@ -10,7 +10,7 @@ const lastUpdatedHuman = new Date().toLocaleDateString()
       <div class="flex items-center gap-4 mb-6">
         <div>
           <a href="/" aria-label="Go to homepage" class="inline-block">
-            <GlitchText text={BUSINESS_NAME} className="text-3xl sm:text-5xl font-bold" client:visible />
+            <GlitchText text={BUSINESS_NAME} className="text-3xl sm:text-5xl font-bold" client:only="react" />
           </a>
           <p class="mt-1 text-sm sm:text-base">{TAGLINE}</p>
         </div>

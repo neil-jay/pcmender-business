@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import ParticleNet from '../components/ParticleNet.tsx'
+import RoboticBackground from '../components/RoboticBackground.tsx'
 const { lang = 'en', title, description } = Astro.props
 ---
 <html lang={lang}>
@@ -12,6 +13,7 @@ const { lang = 'en', title, description } = Astro.props
   </head>
   <body>
     <div class="scan-bar" aria-hidden="true"></div>
+    <RoboticBackground client:load />
     <ParticleNet client:load />
     <slot />
   </body>

@@ -3,9 +3,12 @@ import react from '@astrojs/react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  integrations: [react()],
+  integrations: [react({ fastRefresh: false })],
   site: 'https://example.com',
   vite: {
+    server: {
+      hmr: false
+    },
     plugins: [tailwindcss()],
     resolve: {
       alias: {
